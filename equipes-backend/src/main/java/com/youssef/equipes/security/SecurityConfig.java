@@ -1,3 +1,4 @@
+
 package com.youssef.equipes.security;
 
 
@@ -44,18 +45,19 @@ public class SecurityConfig {
 	cors.setExposedHeaders(Collections.singletonList("Authorization"));
 	 return cors;
 	 }
-	 })).authorizeHttpRequests().anyRequest().permitAll();
+	 }))
 	
-	/* .authorizeHttpRequests( requests -> requests
+	.authorizeHttpRequests( requests -> requests
 	.requestMatchers("/api/all/**").hasAnyAuthority("ADMIN","USER")
 	.requestMatchers(HttpMethod.GET,"/api/getbyid/**").hasAnyAuthority("ADMIN","USER")
 	.requestMatchers(HttpMethod.POST,"/api/addeqip/**").hasAnyAuthority("ADMIN")
 	.requestMatchers(HttpMethod.PUT,"/api/updateeqip/**").hasAuthority("ADMIN")
 	.requestMatchers(HttpMethod.DELETE,"/api/deleqip/**").hasAuthority("ADMIN")
 	.requestMatchers("/ligue/**").hasAnyAuthority("ADMIN","USER")
+	.requestMatchers("/api/image/**").hasAnyAuthority("ADMIN","USER")
 	.anyRequest().authenticated() )
 	.addFilterBefore(new JWTAuthorizationFilter(),
-	 UsernamePasswordAuthenticationFilter.class);*/
+	 UsernamePasswordAuthenticationFilter.class);
 	return http.build();
 	}
 }

@@ -64,7 +64,10 @@ public class Equipe {
 	public void setImage(Image image) {
 		this.image = image;
 	}*/
-
+	public void addImage(Image image) {
+        images.add(image);
+        image.setEquipe(this);}
+    
 	public Ligue getLigue() {
 		return ligue;
 	}

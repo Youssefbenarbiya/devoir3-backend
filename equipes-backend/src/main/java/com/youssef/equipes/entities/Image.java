@@ -36,6 +36,5 @@ public class Image {
 	@JoinColumn (name="Equipe_ID")
 	@JsonIgnore
 	private Equipe equipe;
-	// Getters and Setters
    
 }

@@ -49,9 +49,17 @@ public class EquipeServiceImpl implements EquipeService{
 	return prodUpdated;
 	}
 	@Override
-	public void deleteEquipe(Equipe p) {
-		equipeRepository.delete(p);
+	public void deleteEquipe(Equipe equipe) {
+	    // Delete associated images from the database
+	    List<Image> images = equipe.getImages();
+	    for (Image image : images) {
+	        imageRepository.delete(image);
+	    }
+
+	    // Finally, delete the Equipe
+	    equipeRepository.delete(equipe);
 	}
+
 /*
 	@Override
 	public void deleteEquipeById(Long id) {
@@ -59,15 +67,18 @@ public class EquipeServiceImpl implements EquipeService{
 	}*/
 	@Override
 	public void deleteEquipeById(Long id) {
-		Equipe p = getEquipe(id);
-	//suuprimer l'image avant de supprimer le produit
-	try {
-	Files.delete(Paths.get(System.getProperty("user.home")+"/images/"+p.getImagePath()));
-	} catch (IOException e) {
-	e.printStackTrace();
+	    Equipe equipe = equipeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Equipe not found"));
+
+	    // Delete associated images from the database
+	    List<Image> images = equipe.getImages();
+	    for (Image image : images) {
+	        imageRepository.delete(image);
+	    }
+
+	    // Finally, delete the Equipe
+	    equipeRepository.deleteById(id);
 	}
-	equipeRepository.deleteById(id);
-	}
+
 
 	@Override
 	public Equipe getEquipe(Long id) {
